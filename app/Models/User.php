@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Jenssegers\Mongodb\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
+    protected $connection = 'mongodb';
+    protected $collection = 'users'
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
