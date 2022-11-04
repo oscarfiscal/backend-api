@@ -24,3 +24,4 @@ Route::post('/login',[App\Http\Controllers\api\UserController::class,'login']);
 
 
 Route::post('/candidates',[App\Http\Controllers\api\CandidateController::class,'store' ]);
+Route::get('/lead/{id}',[App\Http\Controllers\api\CandidateController::class,'show' ]);

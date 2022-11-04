@@ -45,9 +45,18 @@ class CandidateController extends Controller
      * @param  \App\Models\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function show(Candidate $candidate)
+    public function show($id)
     {
-        //
+        $candidate = Candidate::find($id);  
+        if (is_null($candidate)) {
+            return response()->json(["meta"=>[
+                "success"=>false,
+                "errors"=>"lead not found"
+            ]],404);
+       
+        }
+     
+        return new CandidateResources($candidate);
     }
 
     /**
