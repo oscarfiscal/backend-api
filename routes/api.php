@@ -23,9 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login',[App\Http\Controllers\api\UserController::class,'login']);
 
 
-Route::post('/candidates',[App\Http\Controllers\api\CandidateController::class,'store' ]);
-Route::get('/lead/{id}',[App\Http\Controllers\api\CandidateController::class,'show' ]);
-Route::get('/leads',[App\Http\Controllers\api\CandidateController::class,'index' ]);
+
+
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('/leads',[App\Http\Controllers\api\CandidateController::class,'index' ]);
+    Route::post('/candidates',[App\Http\Controllers\api\CandidateController::class,'store' ])->middleware('role');
+    Route::get('/lead/{id}',[App\Http\Controllers\api\CandidateController::class,'show' ]);
+
 });
