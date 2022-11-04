@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Http\Resources\Candidate as CandidateResources;
+use App\Http\Resources\CandidateCollection;
 
 class CandidateController extends Controller
 {
@@ -23,7 +24,14 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        //
+       
+        if (auth()->user()->role == 'manager') {
+            return new CandidateCollection($this->candidate->all());
+        }
+        
+        if (auth()->user()->role == 'agent') {
+            return new CandidateCollection($this->candidate->where('owner', auth()->user()->id)->get());
+        }
     }
 
     /**
