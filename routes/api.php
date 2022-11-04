@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\UserController;
+use App\Http\controllers\CandidateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login',[App\Http\Controllers\api\UserController::class,'login']);
+
+
+Route::post('/candidates',[App\Http\Controllers\api\CandidateController::class,'store' ]);

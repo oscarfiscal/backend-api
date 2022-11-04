@@ -12,82 +12,28 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+ 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
     public function login(Request $request)
     {
      
-            $validateUser = Validator::make($request->all(), 
-            [
-                'username' => 'required',
-                'password' => 'required'
+         
+              $validator = Validator::make($request->all(), [
+                'username' => 'required|string',
+                'password' => 'required',
             ]);
-
-            if($validateUser->fails()){
-                return response()->json([
-                    'meta' => [
-                        'success' => false,
-                        'errors' => $validateUser->errors()
-                    ]
-                ], 401);
+            if ($validator->fails()) {
+                return response()->json(['error'=>$validator->errors()], 401);
             }
-           
-            $accessToken = auth()->user()->createToken('my-app-token')->plainTextToken;
-
-            return response()->json(new LoginResource($accessToken), 200);
+            if(Auth::attempt(['username' => request('username'), 'password' => request('password')])){
+                $accessToken = auth()->user()->createToken('my-app-token')->plainTextToken;
+                 return response()->json(new LoginResource($accessToken), 200);
+              
+            }
 
     }
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
+   
 }
