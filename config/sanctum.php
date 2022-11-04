@@ -45,8 +45,8 @@ return [
     | not expire. This won't tweak the lifetime of first-party sessions.
     |
     */
-    //expiration 24 hours
-    'expiration' => 1440,
+    //expiration 10 seconds
+    'expiration' =>     60,
 
     /*
     |--------------------------------------------------------------------------

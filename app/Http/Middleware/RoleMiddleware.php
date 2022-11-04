@@ -16,12 +16,12 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-       
         if (auth()->user()->role == 'agent') {
             return response()->json(["meta"=>[
                 "code"=>403,
                 "message"=>"You are not authorized to access this resource"
             ]],403);
         }
+        return $next($request);
     }
 }
