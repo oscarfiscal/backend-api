@@ -20,6 +20,7 @@ class Login extends JsonResource
             "error" => "false",
           ],
             "data" => [
+                "id_user" => auth()->user()->id,
                 "token" => $this->resource,
                 "minutes_to_expire" => 1440, // 24 hours
               
